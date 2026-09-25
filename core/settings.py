@@ -14,10 +14,10 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(override=True)
 
-host=os.getenv('DB_HOST')
-port=os.getenv('DB_PORT')
+db_Host=os.getenv('DB_HOST')
+db_Port=os.getenv('DB_PORT')
 database=os.getenv('DB_NAME')
 user=os.getenv('DB_USERNAME')
 password=os.getenv('DB_PASSWORD')
@@ -84,8 +84,12 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT'),
     }
 }
 
